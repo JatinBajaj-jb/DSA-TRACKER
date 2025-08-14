@@ -29,4 +29,8 @@
 |  |
 | ------- |
 | [2696-the-number-of-beautiful-subsets](https://github.com/JatinBajaj-jb/DSA-TRACKER/tree/master/2696-the-number-of-beautiful-subsets) |
+## Linked List
+|  |
+| ------- |
+| [1765-merge-in-between-linked-lists](https://github.com/JatinBajaj-jb/DSA-TRACKER/tree/master/1765-merge-in-between-linked-lists) |
 <!---LeetCode Topics End-->
