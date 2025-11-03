@@ -40,3 +40,136 @@ public:
         return sum;   
     }
 };
+
+// Approach 2 : I used kruskal's algorithm :
+class Solution {
+private:
+    int find(int u,vector<int>& parent){
+        if(u==parent[u]){
+            return u;
+        }
+        else{
+            return parent[u]=find(parent[u],parent);
+        }
+    }
+    void uniont(int u,int v,vector<int>& rank,vector<int>& parent){
+        int parent_u=find(u,parent);
+        int parent_v=find(v,parent);
+        if(parent_u==parent_v){
+            return;
+        }
+        if(rank[parent_u]>rank[parent_v]){
+            parent[parent_v]=parent_u;
+        }
+        else if(rank[parent_u]<rank[parent_v]){
+            parent[parent_u]=parent_v;
+        }
+        else{
+            parent[parent_u]=parent_v;
+            rank[parent_v]++;
+        }
+        return;
+    }
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n=points.size();
+        vector<vector<int>> adj;
+
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                int x1=points[i][0];
+                int y1=points[i][1];
+                int x2=points[j][0];
+                int y2=points[j][1];
+
+                int dis=abs(x2-x1)+abs(y2-y1);
+                adj.push_back({i,j,dis});
+            }
+        }
+        auto comp=[&](const vector<int>&v1,const vector<int>&v2){
+            return v1[2]<v2[2];
+        };
+        sort(adj.begin(),adj.end(),comp);
+        int sum=0;
+        vector<int>rank(n,0);
+        vector<int>parent(n);
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        for(auto& it: adj){
+            int p_u=find(it[0],parent);
+            int p_v=find(it[1],parent);
+            int wt=it[2];
+            if(p_u!=p_v){
+                uniont(it[0],it[1],rank,parent);
+                sum+=wt;
+            }
+        }
+        return sum;   
+    }
+};class Solution {
+private:
+    int find(int u,vector<int>& parent){
+        if(u==parent[u]){
+            return u;
+        }
+        else{
+            return parent[u]=find(parent[u],parent);
+        }
+    }
+    void uniont(int u,int v,vector<int>& rank,vector<int>& parent){
+        int parent_u=find(u,parent);
+        int parent_v=find(v,parent);
+        if(parent_u==parent_v){
+            return;
+        }
+        if(rank[parent_u]>rank[parent_v]){
+            parent[parent_v]=parent_u;
+        }
+        else if(rank[parent_u]<rank[parent_v]){
+            parent[parent_u]=parent_v;
+        }
+        else{
+            parent[parent_u]=parent_v;
+            rank[parent_v]++;
+        }
+        return;
+    }
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n=points.size();
+        vector<vector<int>> adj;
+
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                int x1=points[i][0];
+                int y1=points[i][1];
+                int x2=points[j][0];
+                int y2=points[j][1];
+
+                int dis=abs(x2-x1)+abs(y2-y1);
+                adj.push_back({i,j,dis});
+            }
+        }
+        auto comp=[&](const vector<int>&v1,const vector<int>&v2){
+            return v1[2]<v2[2];
+        };
+        sort(adj.begin(),adj.end(),comp);
+        int sum=0;
+        vector<int>rank(n,0);
+        vector<int>parent(n);
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        for(auto& it: adj){
+            int p_u=find(it[0],parent);
+            int p_v=find(it[1],parent);
+            int wt=it[2];
+            if(p_u!=p_v){
+                uniont(it[0],it[1],rank,parent);
+                sum+=wt;
+            }
+        }
+        return sum;   
+    }
+};
