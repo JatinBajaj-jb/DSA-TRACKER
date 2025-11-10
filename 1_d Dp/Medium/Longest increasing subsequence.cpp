@@ -36,3 +36,22 @@ public:
         return result;
     }
 };
+// Approach 3 : I used patience sorting approach 
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> sorted;
+        for(int i=0;i<n;i++){
+            int elem=nums[i];
+            auto it=lower_bound(sorted.begin(),sorted.end(),elem);
+            if(it==sorted.end()){
+                sorted.push_back(elem);
+            }
+            else{
+                *it=elem;
+            }
+        }
+        return sorted.size();
+    }
+};
