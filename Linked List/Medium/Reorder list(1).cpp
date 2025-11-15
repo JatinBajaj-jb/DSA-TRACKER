@@ -47,3 +47,29 @@ public:
         curr1->next=NULL;
     }
 };
+
+// Approach 3 : I used recursion 
+class Solution {
+private:
+    ListNode* left;
+    void solve( ListNode* right){
+        if(!right) return;
+        solve(right->next);
+
+        if(!left) return;
+        if(left==right || left->next==right){
+            right->next=NULL;
+            left=NULL;
+            return;
+        }
+        ListNode* temp = left->next;
+        left->next = right;
+        right->next = temp;
+        left = temp;
+    }
+public:
+    void reorderList(ListNode* head) {
+        left=head;
+        solve(head);
+    }
+};
