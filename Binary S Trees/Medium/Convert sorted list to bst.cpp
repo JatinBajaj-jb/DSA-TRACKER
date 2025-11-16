@@ -29,3 +29,31 @@ public:
         return base;
     }
 };
+// Approach 2 : I used vector initially and did normal divide and conquer
+
+class Solution {
+private:
+    TreeNode* solve(vector<int>& list,int left,int right){
+        if(left>right) return NULL;
+        TreeNode* curr= new TreeNode();
+
+        int mid=left+(right-left)/2;
+
+        curr->val=list[mid];
+
+        curr->right=solve(list,mid+1,right);
+        curr->left=solve(list,left,mid-1);
+        return curr;
+    }
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(!head) return NULL;
+        vector<int> list;
+        while(head){
+            list.push_back(head->val);
+            head=head->next;
+        }
+        TreeNode* root=solve(list,0,list.size()-1);
+        return root;
+    }
+};
