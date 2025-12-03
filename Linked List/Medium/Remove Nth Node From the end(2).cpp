@@ -23,3 +23,25 @@ public:
         return head;
     }
 };
+// Approach 2 : I used two pointer approach 
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* fast=head;
+        ListNode* slow=head;
+        int currindx=1;
+        int size=1;
+        if(!fast->next && n==1) return nullptr;
+        while(fast && fast->next){
+            size++;
+            fast=fast->next;
+            if(currindx>n){
+                slow=slow->next;
+            }
+            currindx++;
+        }
+        if(size-n-1==-1) return head->next;
+        slow->next=slow->next->next;
+        return head;
+    }
+};
