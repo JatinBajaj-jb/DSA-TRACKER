@@ -47,3 +47,44 @@ public:
         return result;
     }
 };
+// Attempt 2 : I used recursion to solve the question 
+
+class Solution {
+private:
+    ListNode* solve(ListNode* l1, ListNode* l2,int carry){
+        ListNode* curr=new ListNode();
+        if(!l1 && !l2){
+            if(carry==0) return nullptr;
+            else{
+                curr->val=1;
+                curr->next=nullptr;
+                return curr;
+            }
+        }
+        else if(!l1) {
+            int sum=l2->val+carry;
+            int temp=(sum>9?1:0);
+            curr->val=sum%10;
+            curr->next=solve(l1,l2->next,temp);
+            return curr;
+        }
+        else if (!l2){
+            int sum=l1->val+carry;
+            int temp=(sum>9?1:0);
+            curr->val=sum%10;
+            curr->next=solve(l1->next,l2,temp);
+            return curr;
+        }
+        int sum=l1->val+l2->val+carry;
+        int temp=(sum>9?1:0);
+        curr->val=sum%10;
+        curr->next=solve(l1->next,l2->next,temp);
+        return curr;
+    }
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy=new ListNode();
+        dummy->next=solve(l1,l2,0);
+        return dummy->next;
+    }
+};
