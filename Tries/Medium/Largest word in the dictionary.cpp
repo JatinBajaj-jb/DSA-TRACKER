@@ -55,3 +55,33 @@ public:
         return result;
     }
 };
+// Approach 2 : I used recursive approach as a brute force to solve the question
+class Solution {
+private:
+    bool check(string word,vector<string>& words){
+        for(auto& word1:words){
+            if(word==word1){
+                if(word.length()==1 || check(word.substr(0,word.length()-1),words)) return true;
+            }
+        }
+        return false;
+    }
+public:
+    string longestWord(vector<string>& words) {
+        string result="";
+        for(auto word:words){
+            if(word.length()==1){
+                if(result.length()==0) result=word;
+                continue;
+            }
+
+            if(check(word.substr(0,word.length()-1),words)){
+                if(result.length()<word.length()) result=word;
+                if(result.length()==word.length() && result>word){
+                    result=word;
+                }
+            }
+        }
+        return result;
+    }
+};
