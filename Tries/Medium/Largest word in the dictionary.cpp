@@ -85,3 +85,21 @@ public:
         return result;
     }
 };
+// Approach 3 : I used set to keep track of words 
+class Solution {
+public:
+    string longestWord(vector<string>& words) {
+        sort(words.begin(),words.end());
+        set<string> st;
+        string result="";
+
+        for(auto& word:words){
+            if(word.length()==1 || st.count(word.substr(0,word.length()-1))){
+                st.insert(word);
+                if(result.length()<word.length()) result=word;
+                else if(result.length()==word.length() && result> word) result=word;
+            }
+        }
+        return result;
+    }
+};
